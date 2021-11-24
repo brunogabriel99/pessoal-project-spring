@@ -1,20 +1,34 @@
 package com.pessoalproject.controllers;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pessoalproject.entities.User;
+import com.pessoalproject.services.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserController {
 	
+	@Autowired
+	private UserService service;
+	
 	@GetMapping
-	public ResponseEntity<User> findAll() {
-		User u = new User(1L, "Maria", "Maria@gmail.com", "999999", "12345"); 
+	public ResponseEntity<List<User>> findAll() {
+		List<User> list = service.findAll();
+		return ResponseEntity.ok().body(list);
+	}
+	
+	@GetMapping("{id}")
+	public ResponseEntity<User> findById(@PathVariable Long id) {
+		User u = service.findById(id);
 		return ResponseEntity.ok().body(u);
 	}
-
 }

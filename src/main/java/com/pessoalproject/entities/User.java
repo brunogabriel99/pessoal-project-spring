@@ -31,6 +31,14 @@ public class User implements Serializable{
 		this.phone = phone;
 		this.password = password;
 	}
+	
+	//construtor sem id
+	public User(String name, String email, String phone, String password) {
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.password = password;
+	}
 
 	public Long getId() {
 		return id;
